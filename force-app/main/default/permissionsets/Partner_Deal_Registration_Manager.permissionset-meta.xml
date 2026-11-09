@@ -62,4 +62,8 @@
         <object>Deal_Registration__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
+    <tabSettings>
+        <tab>Deal_Registration__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
 </PermissionSet>
