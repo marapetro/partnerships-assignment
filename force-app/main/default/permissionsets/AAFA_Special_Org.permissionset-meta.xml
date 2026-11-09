@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This is a permission set used to validate that the Trailblazer is using the correct special org to complete the Advanced Agentforce Flow Administration superbadge.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>AAFA Special Org</label>
+</PermissionSet>
