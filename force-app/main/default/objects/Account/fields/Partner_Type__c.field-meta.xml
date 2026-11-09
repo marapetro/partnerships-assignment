@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Partner_Type__c</fullName>
+    <description>The kind of partner this account is. Blank means the account is not a partner; only accounts with a value can be selected as the Partner Account on a Deal Registration.</description>
+    <label>Partner Type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Reseller</fullName>
+                <default>false</default>
+                <label>Reseller</label>
+            </value>
+            <value>
+                <fullName>Referral</fullName>
+                <default>false</default>
+                <label>Referral</label>
+            </value>
+            <value>
+                <fullName>Marketplace</fullName>
+                <default>false</default>
+                <label>Marketplace</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

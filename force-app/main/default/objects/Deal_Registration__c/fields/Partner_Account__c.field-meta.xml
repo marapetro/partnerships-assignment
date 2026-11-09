@@ -5,6 +5,16 @@
     <label>Partner Account</label>
     <trackHistory>false</trackHistory>
     <deleteConstraint>Restrict</deleteConstraint>
+    <lookupFilter>
+        <active>true</active>
+        <errorMessage>Select an account with a Partner Type.</errorMessage>
+        <filterItems>
+            <field>Account.Partner_Type__c</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
     <referenceTo>Account</referenceTo>
     <relationshipLabel>Deal Registrations (Partner)</relationshipLabel>
     <relationshipName>Deal_Registrations_Partner</relationshipName>
