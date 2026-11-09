@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Override_Requires_Reason</fullName>
+    <active>true</active>
+    <description>Requires an override reason when a conflicted registration is resolved in the partner's favor.</description>
+    <errorConditionFormula>AND(Conflict_Flag__c, ISPICKVAL(Conflict_Resolution__c, "Partner Protected (Sourced)"), ISBLANK(Override_Reason__c))</errorConditionFormula>
+    <errorMessage>Overriding the default resolution requires a reason.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Not_Eligible_Cannot_Be_Approved</fullName>
+    <active>true</active>
+    <description>Blocks moving a Not Eligible registration directly to Approved.</description>
+    <errorConditionFormula>AND(ISCHANGED(Status__c), ISPICKVAL(Status__c, "Approved"), ISPICKVAL(PRIORVALUE(Status__c), "Not Eligible"))</errorConditionFormula>
+    <errorMessage>Existing customers are not eligible for registration.</errorMessage>
+</ValidationRule>
