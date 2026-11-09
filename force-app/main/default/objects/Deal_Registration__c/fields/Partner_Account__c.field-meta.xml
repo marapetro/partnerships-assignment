@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Partner_Account__c</fullName>
+    <description>The partner submitting this registration.</description>
+    <label>Partner Account</label>
+    <trackHistory>false</trackHistory>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Deal Registrations (Partner)</relationshipLabel>
+    <relationshipName>Deal_Registrations_Partner</relationshipName>
+    <required>true</required>
+    <type>Lookup</type>
+</CustomField>

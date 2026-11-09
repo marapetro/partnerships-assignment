@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>End_Customer__c</fullName>
+    <description>The customer account the deal is for. Used for exact-match eligibility and conflict checks.</description>
+    <label>End Customer</label>
+    <trackHistory>false</trackHistory>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Deal Registrations (End Customer)</relationshipLabel>
+    <relationshipName>Deal_Registrations_End_Customer</relationshipName>
+    <required>true</required>
+    <type>Lookup</type>
+</CustomField>
