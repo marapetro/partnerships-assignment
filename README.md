@@ -123,7 +123,8 @@ Open the **Sales** app.
 - `Partner_Program_Admin` was added so that editing `Partner_Type__c` is separate from the manager role, which has read access only.
 - A tab was added so the object can be reached in the UI.
 - The three required Deal Registration fields (Partner Account, Partner Role, Estimated Amount) have no permission set entries because Salesforce does not allow them. They are always editable. End Customer is no longer required, so it now has an explicit entry in `Partner_Deal_Registration_Manager`, along with End Customer Name and Domain.
-- `Partner_Register_Deal` is restricted to permission sets that grant it, and `Partner_Deal_Registration_Manager` grants it. This lets users without the Run Flows permission, such as the Standard User profile, run it without an org-wide system permission.
+- `Partner_Register_Deal` is restricted to permission sets that grant it, and `Partner_Deal_Registration_Manager` grants it.
+- `Partner_Deal_Registration_Manager` also includes the **Run Flows** system permission. Without it, Salesforce leaves the flow component off the Lightning page for non-admin users such as Standard User: the page shows no flow and no error, even with flow-specific access. Because the flow is restricted, holders still can't run it without this permission set.
 - A Lightning record page was added and set as the org default for Deal Registration, because Dynamic Actions need one.
 - On the page layout, End Customer is no longer Required, to match the field. End Customer Name and Domain were added as read-only.
 - The Sales app metadata no longer lists `standard-WaveHome`. The org rejects that tab when the app is deployed, because it is not supported in Lightning apps.
