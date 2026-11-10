@@ -57,7 +57,7 @@
             <label>Not Eligible</label>
         </rules>
     </decisions>
-    <description>Partner-facing deal registration (Portal V1; the same flow is exposed in Experience Cloud later). Runs in user context. Matches the typed company name to an Account by exact name (stand-in for the matching service), creates the Deal Registration, and shows a result message based on the Status set by the before-save Flow. Never shows Conflict Reason, opportunity details or other partners. Assumes a demo partner account named Northwind Partners for the default Partner value.</description>
+    <description>Partner-facing deal registration (Portal V1; the same flow is exposed in Experience Cloud later). Runs in user context. Matches the typed company name to an Account by exact name (stand-in for the matching service), creates the Deal Registration, and shows a result message based on the Status set by the before-save Flow. Never shows Conflict Reason, opportunity details or other partners. Assumes a demo partner account named Northwind Partners for the default Partner value. Access is restricted to users granted this flow via permission set (Partner_Deal_Registration_Manager).</description>
     <dynamicChoiceSets>
         <description>Partner Role picklist values from Deal_Registration__c.Partner_Role__c.</description>
         <name>Partner_Role_Choices</name>
@@ -69,6 +69,7 @@
     </dynamicChoiceSets>
     <environments>Default</environments>
     <interviewLabel>Partner Register Deal {!$Flow.CurrentDateTime}</interviewLabel>
+    <isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
     <label>Partner Register Deal</label>
     <processMetadataValues>
         <name>BuilderType</name>
