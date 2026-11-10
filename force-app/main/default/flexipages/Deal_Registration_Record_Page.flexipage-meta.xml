@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Partner manager record page. Dynamic Actions show Approve and Reject only while Status is Submitted or Under Review.</description>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>actionNames</name>
+                    <valueList>
+                    <valueListItems>
+                        <value>Deal_Registration__c.Approve</value>
+                        <visibilityRule>
+                            <booleanFilter>1 OR 2</booleanFilter>
+                            <criteria>
+                                <leftValue>{!Record.Status__c}</leftValue>
+                                <operator>EQUAL</operator>
+                                <rightValue>Submitted</rightValue>
+                            </criteria>
+                            <criteria>
+                                <leftValue>{!Record.Status__c}</leftValue>
+                                <operator>EQUAL</operator>
+                                <rightValue>Under Review</rightValue>
+                            </criteria>
+                        </visibilityRule>
+                    </valueListItems>
+                    <valueListItems>
+                        <value>Deal_Registration__c.Reject</value>
+                        <visibilityRule>
+                            <booleanFilter>1 OR 2</booleanFilter>
+                            <criteria>
+                                <leftValue>{!Record.Status__c}</leftValue>
+                                <operator>EQUAL</operator>
+                                <rightValue>Submitted</rightValue>
+                            </criteria>
+                            <criteria>
+                                <leftValue>{!Record.Status__c}</leftValue>
+                                <operator>EQUAL</operator>
+                                <rightValue>Under Review</rightValue>
+                            </criteria>
+                        </visibilityRule>
+                    </valueListItems>
+                        <valueListItems>
+                            <value>Edit</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>collapsed</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>enableActionsConfiguration</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>enableActionsInNative</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>hideChatterActions</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>numVisibleActions</name>
+                    <value>3</value>
+                </componentInstanceProperties>
+                <componentName>force:highlightsPanel</componentName>
+                <identifier>force_highlightsPanel</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>header</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>force:detailPanel</componentName>
+                <identifier>force_detailPanel</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>main</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <masterLabel>Deal Registration Record Page</masterLabel>
+    <sobjectType>Deal_Registration__c</sobjectType>
+    <template>
+        <name>flexipage:recordHomeTemplateDesktop</name>
+    </template>
+    <type>RecordPage</type>
+</FlexiPage>

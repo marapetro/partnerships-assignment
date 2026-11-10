@@ -11,8 +11,16 @@
                 <field>Partner_Account__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Edit</behavior>
                 <field>End_Customer__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>End_Customer_Name__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>End_Customer_Domain__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
@@ -25,7 +33,7 @@
                 <field>Estimated_Amount__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Status__c</field>
             </layoutItems>
         </layoutColumns>

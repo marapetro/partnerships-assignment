@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Partner manager record page with Approve/Reject Dynamic Actions.</comment>
+        <content>Deal_Registration_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>A partner's claim on a prospective deal. Checked for eligibility and conflicts on creation, and grants 90 days of protection on approval.</description>
     <enableActivities>false</enableActivities>
