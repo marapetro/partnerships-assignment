@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>End_Customer_Name__c</fullName>
+    <description>The company name exactly as the partner typed it. Kept for audit and so the partner manager can match the registration to an End Customer account.</description>
+    <label>End Customer Name</label>
+    <trackHistory>false</trackHistory>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
