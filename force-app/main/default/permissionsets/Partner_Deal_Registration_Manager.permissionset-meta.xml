@@ -28,6 +28,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Deal_Registration__c.End_Customer_Domain__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Deal_Registration__c.End_Customer_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Deal_Registration__c.End_Customer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Deal_Registration__c.Opportunity__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -51,6 +66,10 @@
         <field>Deal_Registration__c.Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <flowAccesses>
+        <enabled>true</enabled>
+        <flow>Partner_Register_Deal</flow>
+    </flowAccesses>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Partner Deal Registration Manager</label>
     <objectPermissions>
@@ -64,6 +83,10 @@
     </objectPermissions>
     <tabSettings>
         <tab>Deal_Registration__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>Partner_Deal_Registration</tab>
         <visibility>Visible</visibility>
     </tabSettings>
 </PermissionSet>

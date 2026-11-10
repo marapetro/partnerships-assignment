@@ -89,6 +89,59 @@
             </value>
         </assignmentItems>
     </assignments>
+    <assignments>
+        <name>Set_Customer_Not_Matched</name>
+        <label>Set Customer Not Matched</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Under Review</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Conflict_Flag__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Conflict_Reason__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Customer not matched – confirm End Customer</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <decisions>
+        <description>Null guard: never run the eligibility and conflict queries with a blank End Customer, because a Get Records filter of AccountId = blank can match unrelated Opportunities.</description>
+        <name>Is_End_Customer_Blank</name>
+        <label>Is End Customer Blank?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Get_Won_Opportunity</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>End_Customer_Blank_Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.End_Customer__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Customer_Not_Matched</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
     <decisions>
         <name>Is_Existing_Customer</name>
         <label>Is Existing Customer?</label>
@@ -161,7 +214,7 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>Runs before save when a Deal Registration is created. Marks existing customers Not Eligible, otherwise flags a conflict when the End Customer has an open engaged opportunity or a loss in the last 30 days. Assumes the first opportunity stage is named Prospecting.</description>
+    <description>Runs before save when a Deal Registration is created. If End Customer is blank, sets Under Review with a Customer not matched reason and skips all queries. Otherwise marks existing customers Not Eligible, otherwise flags a conflict when the End Customer has an open engaged opportunity or a loss in the last 30 days. Assumes the first opportunity stage is named Prospecting.</description>
     <formulas>
         <description>The date 30 days before today. Window for recent activity and recent losses.</description>
         <name>Today_Minus_30</name>
@@ -308,7 +361,7 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Get_Won_Opportunity</targetReference>
+            <targetReference>Is_End_Customer_Blank</targetReference>
         </connector>
         <object>Deal_Registration__c</object>
         <recordTriggerType>Create</recordTriggerType>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>End_Customer_Domain__c</fullName>
+    <description>The company website or domain the partner entered. Second signal for matching to an End Customer account (future matching service).</description>
+    <label>End Customer Domain</label>
+    <trackHistory>false</trackHistory>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
