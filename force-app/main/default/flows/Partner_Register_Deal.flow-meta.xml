@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>62.0</apiVersion>
+    <apiVersion>66.0</apiVersion>
     <decisions>
         <description>Chooses the partner-facing result message from the Status the before-save Flow set. Unknown statuses fall back to the Under Review message, which reveals nothing internal.</description>
         <name>Which_Status</name>
