@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Lets partner managers create, review and decide Deal Registrations. Fields set by Flow are read-only.</description>
+    <description>Lets partner managers create, review and decide Deal Registrations. Fields set by Flow are read-only. Includes Run Flows, which the Lightning page flow component requires to render the partner registration flow.</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.Partner_Type__c</field>
@@ -89,4 +89,8 @@
         <tab>Partner_Deal_Registration</tab>
         <visibility>Visible</visibility>
     </tabSettings>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>RunFlow</name>
+    </userPermissions>
 </PermissionSet>
