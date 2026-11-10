@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <decisions>
+        <description>Chooses the partner-facing result message from the Status the before-save Flow set. Unknown statuses fall back to the Under Review message, which reveals nothing internal.</description>
+        <name>Which_Status</name>
+        <label>Which Status?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Result_Under_Review</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Other</defaultConnectorLabel>
+        <rules>
+            <name>Status_Submitted</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Registration.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Submitted</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Result_Submitted</targetReference>
+            </connector>
+            <label>Submitted</label>
+        </rules>
+        <rules>
+            <name>Status_Under_Review</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Registration.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Under Review</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Result_Under_Review</targetReference>
+            </connector>
+            <label>Under Review</label>
+        </rules>
+        <rules>
+            <name>Status_Not_Eligible</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Registration.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Not Eligible</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Result_Not_Eligible</targetReference>
+            </connector>
+            <label>Not Eligible</label>
+        </rules>
+    </decisions>
+    <description>Partner-facing deal registration (Portal V1; the same flow is exposed in Experience Cloud later). Runs in user context. Matches the typed company name to an Account by exact name (stand-in for the matching service), creates the Deal Registration, and shows a result message based on the Status set by the before-save Flow. Never shows Conflict Reason, opportunity details or other partners. Assumes a demo partner account named Northwind Partners for the default Partner value.</description>
+    <dynamicChoiceSets>
+        <description>Partner Role picklist values from Deal_Registration__c.Partner_Role__c.</description>
+        <name>Partner_Role_Choices</name>
+        <dataType>Picklist</dataType>
+        <displayField xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+        <object xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+        <picklistField>Partner_Role__c</picklistField>
+        <picklistObject>Deal_Registration__c</picklistObject>
+    </dynamicChoiceSets>
+    <environments>Default</environments>
+    <interviewLabel>Partner Register Deal {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Partner Register Deal</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordCreates>
+        <description>Creates the registration. End Customer is the matched Account Id or blank; the before-save Flow sets Status and conflict fields.</description>
+        <name>Create_Registration</name>
+        <label>Create Registration</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignRecordIdToReference>varRegistrationId</assignRecordIdToReference>
+        <connector>
+            <targetReference>Get_Registration</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Result_Error</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>End_Customer_Domain__c</field>
+            <value>
+                <elementReference>Company_Domain</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>End_Customer_Name__c</field>
+            <value>
+                <elementReference>Company_Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>End_Customer__c</field>
+            <value>
+                <elementReference>varMatchedAccountId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Estimated_Amount__c</field>
+            <value>
+                <elementReference>Estimated_Deal_Size</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Partner_Account__c</field>
+            <value>
+                <elementReference>Partner_Lookup.recordId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Partner_Role__c</field>
+            <value>
+                <elementReference>Partner_Role</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Deal_Registration__c</object>
+    </recordCreates>
+    <recordLookups>
+        <description>Demo only: finds the default partner account. In the portal the partner comes from the signed-in user's account.</description>
+        <name>Get_Default_Partner</name>
+        <label>Get Default Partner</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Register_A_Deal</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Northwind Partners</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Partner_Type__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <outputAssignments>
+            <assignToReference>varDefaultPartnerId</assignToReference>
+            <field>Id</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <description>Exact-name match of the typed company name to an Account, first record only. Stand-in for the matching service (handoff component). Leaves the Id blank when nothing matches.</description>
+        <name>Get_Matched_Account</name>
+        <label>Get Matched Account</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Create_Registration</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Company_Name</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <outputAssignments>
+            <assignToReference>varMatchedAccountId</assignToReference>
+            <field>Id</field>
+        </outputAssignments>
+    </recordLookups>
+    <recordLookups>
+        <description>Re-reads the new registration to get the Status set by the before-save Flow and the DR number.</description>
+        <name>Get_Registration</name>
+        <label>Get Registration</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Which_Status</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varRegistrationId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Deal_Registration__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <queriedFields>Status__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <runInMode>DefaultMode</runInMode>
+    <screens>
+        <name>Register_A_Deal</name>
+        <label>Register a deal</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Get_Matched_Account</targetReference>
+        </connector>
+        <fields>
+            <name>Partner_Lookup</name>
+            <extensionName>flowruntime:lookup</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>fieldApiName</name>
+                <value>
+                    <stringValue>Partner_Account__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Partner (demo only)</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>objectApiName</name>
+                <value>
+                    <stringValue>Deal_Registration__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>required</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordId</name>
+                <value>
+                    <elementReference>varDefaultPartnerId</elementReference>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>Partner_Help</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 12px; color: rgb(68, 68, 68);&quot;&gt;In the portal this comes from the signed-in partner&apos;s account — partners never choose it.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Company_Name</name>
+            <dataType>String</dataType>
+            <fieldText>Company name</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Company_Domain</name>
+            <dataType>String</dataType>
+            <fieldText>Company website / domain</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>Partner_Role</name>
+            <choiceReferences>Partner_Role_Choices</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Your role on this deal</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <fields>
+            <name>Estimated_Deal_Size</name>
+            <dataType>Currency</dataType>
+            <fieldText>Estimated deal size</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <scale>2</scale>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Result_Error</name>
+        <label>Something went wrong</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Error_Message</name>
+            <fieldText>&lt;p&gt;We couldn&apos;t submit this registration. Please try again, or contact your partner manager.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Result_Not_Eligible</name>
+        <label>Registration result</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Not_Eligible_Message</name>
+            <fieldText>&lt;p&gt;{!Get_Registration.Name}: this company is already our customer, so it isn&apos;t eligible for registration. Your partner manager can still recognize your contribution on the deal.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Result_Submitted</name>
+        <label>Registration result</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Submitted_Message</name>
+            <fieldText>&lt;p&gt;Received ({!Get_Registration.Name}). You&apos;ll have a decision within 2 business days.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Result_Under_Review</name>
+        <label>Registration result</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Under_Review_Message</name>
+            <fieldText>&lt;p&gt;Received ({!Get_Registration.Name}). We&apos;re reviewing it against existing activity; you&apos;ll have a decision within 2 business days.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Default_Partner</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Demo only: Id of the default partner account, pre-filled in the Partner lookup.</description>
+        <name>varDefaultPartnerId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Id of the Account whose name exactly matches the typed company name; blank when no match.</description>
+        <name>varMatchedAccountId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Id of the Deal Registration created by this flow.</description>
+        <name>varRegistrationId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

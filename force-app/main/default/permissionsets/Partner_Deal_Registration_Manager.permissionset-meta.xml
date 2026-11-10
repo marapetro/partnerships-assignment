@@ -81,4 +81,8 @@
         <tab>Deal_Registration__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
+    <tabSettings>
+        <tab>Partner_Deal_Registration</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
 </PermissionSet>
