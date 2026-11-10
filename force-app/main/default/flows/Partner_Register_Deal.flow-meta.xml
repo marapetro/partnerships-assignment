@@ -5,8 +5,8 @@
         <description>Chooses the partner-facing result message from the Status the before-save Flow set. Unknown statuses fall back to the Under Review message, which reveals nothing internal.</description>
         <name>Which_Status</name>
         <label>Which Status?</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
+        <locationX>402</locationX>
+        <locationY>674</locationY>
         <defaultConnector>
             <targetReference>Result_Under_Review</targetReference>
         </defaultConnector>
@@ -94,8 +94,8 @@
         <description>Creates the registration. End Customer is the matched Account Id or blank; the before-save Flow sets Status and conflict fields.</description>
         <name>Create_Registration</name>
         <label>Create Registration</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
+        <locationX>402</locationX>
+        <locationY>458</locationY>
         <assignRecordIdToReference>varRegistrationId</assignRecordIdToReference>
         <connector>
             <targetReference>Get_Registration</targetReference>
@@ -145,8 +145,8 @@
         <description>Demo only: finds the default partner account. In the portal the partner comes from the signed-in user's account.</description>
         <name>Get_Default_Partner</name>
         <label>Get Default Partner</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
+        <locationX>402</locationX>
+        <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Register_A_Deal</targetReference>
@@ -177,8 +177,8 @@
         <description>Exact-name match of the typed company name to an Account, first record only. Stand-in for the matching service (handoff component). Leaves the Id blank when nothing matches.</description>
         <name>Get_Matched_Account</name>
         <label>Get Matched Account</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
+        <locationX>402</locationX>
+        <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_Registration</targetReference>
@@ -202,8 +202,8 @@
         <description>Re-reads the new registration to get the Status set by the before-save Flow and the DR number.</description>
         <name>Get_Registration</name>
         <label>Get Registration</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
+        <locationX>402</locationX>
+        <locationY>566</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Which_Status</targetReference>
@@ -227,8 +227,8 @@
     <screens>
         <name>Register_A_Deal</name>
         <label>Register a deal</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
+        <locationX>402</locationX>
+        <locationY>242</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -283,6 +283,7 @@
             <dataType>String</dataType>
             <fieldText>Company name</fieldText>
             <fieldType>InputField</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
         </fields>
         <fields>
@@ -290,6 +291,7 @@
             <dataType>String</dataType>
             <fieldText>Company website / domain</fieldText>
             <fieldType>InputField</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
         </fields>
         <fields>
@@ -298,6 +300,7 @@
             <dataType>String</dataType>
             <fieldText>Your role on this deal</fieldText>
             <fieldType>DropdownBox</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
         </fields>
         <fields>
@@ -305,17 +308,88 @@
             <dataType>Currency</dataType>
             <fieldText>Estimated deal size</fieldText>
             <fieldType>InputField</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <scale>2</scale>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
+        <styleSettings>
+            <propertyName>--flowruntime-c-flow-border-color</propertyName>
+            <propertyValue>
+                <stringValue>#d97757</stringValue>
+            </propertyValue>
+            <scope>Container</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--flowruntime-c-flow-radius-border</propertyName>
+            <propertyValue>
+                <stringValue>1rem</stringValue>
+            </propertyValue>
+            <scope>Container</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--flowruntime-c-flow-border-weight</propertyName>
+            <propertyValue>
+                <stringValue>0.15rem</stringValue>
+            </propertyValue>
+            <scope>Container</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--flowruntime-c-flow-background-color</propertyName>
+            <propertyValue>
+                <stringValue>#faf9f5</stringValue>
+            </propertyValue>
+            <scope>Container</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--slds-c-button-brand-color-background</propertyName>
+            <propertyValue>
+                <stringValue>#d97757</stringValue>
+            </propertyValue>
+            <scope>NextOrFinish</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--slds-c-button-brand-color-border</propertyName>
+            <propertyValue>
+                <stringValue>#d97757</stringValue>
+            </propertyValue>
+            <scope>NextOrFinish</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--slds-c-button-neutral-color-background</propertyName>
+            <propertyValue>
+                <stringValue>#d97757</stringValue>
+            </propertyValue>
+            <scope>Previous</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--slds-c-button-neutral-color-border</propertyName>
+            <propertyValue>
+                <stringValue>#d97757</stringValue>
+            </propertyValue>
+            <scope>Previous</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--slds-c-button-neutral-color-background</propertyName>
+            <propertyValue>
+                <stringValue>#d97757</stringValue>
+            </propertyValue>
+            <scope>Pause</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--slds-c-button-neutral-color-border</propertyName>
+            <propertyValue>
+                <stringValue>#d97757</stringValue>
+            </propertyValue>
+            <scope>Pause</scope>
+        </styleSettings>
     </screens>
     <screens>
         <name>Result_Error</name>
         <label>Something went wrong</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
+        <locationX>930</locationX>
+        <locationY>566</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -326,12 +400,54 @@
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
+        <styleSettings>
+            <propertyName>--slds-c-button-brand-color-background</propertyName>
+            <propertyValue>
+                <stringValue>#d97757</stringValue>
+            </propertyValue>
+            <scope>NextOrFinish</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--slds-c-button-brand-color-border</propertyName>
+            <propertyValue>
+                <stringValue>#d97757</stringValue>
+            </propertyValue>
+            <scope>NextOrFinish</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--flowruntime-c-flow-border-color</propertyName>
+            <propertyValue>
+                <stringValue>#d97757</stringValue>
+            </propertyValue>
+            <scope>Container</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--flowruntime-c-flow-radius-border</propertyName>
+            <propertyValue>
+                <stringValue>1rem</stringValue>
+            </propertyValue>
+            <scope>Container</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--flowruntime-c-flow-border-weight</propertyName>
+            <propertyValue>
+                <stringValue>0.15rem</stringValue>
+            </propertyValue>
+            <scope>Container</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--flowruntime-c-flow-background-color</propertyName>
+            <propertyValue>
+                <stringValue>#e8e6dc</stringValue>
+            </propertyValue>
+            <scope>Container</scope>
+        </styleSettings>
     </screens>
     <screens>
         <name>Result_Not_Eligible</name>
         <label>Registration result</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
+        <locationX>490</locationX>
+        <locationY>782</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -342,12 +458,54 @@
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
+        <styleSettings>
+            <propertyName>--flowruntime-c-flow-border-color</propertyName>
+            <propertyValue>
+                <stringValue>#d97757</stringValue>
+            </propertyValue>
+            <scope>Container</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--flowruntime-c-flow-radius-border</propertyName>
+            <propertyValue>
+                <stringValue>1rem</stringValue>
+            </propertyValue>
+            <scope>Container</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--flowruntime-c-flow-border-weight</propertyName>
+            <propertyValue>
+                <stringValue>0.15rem</stringValue>
+            </propertyValue>
+            <scope>Container</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--slds-c-button-brand-color-background</propertyName>
+            <propertyValue>
+                <stringValue>#d97757</stringValue>
+            </propertyValue>
+            <scope>NextOrFinish</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--slds-c-button-brand-color-border</propertyName>
+            <propertyValue>
+                <stringValue>#d97757</stringValue>
+            </propertyValue>
+            <scope>NextOrFinish</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--flowruntime-c-flow-background-color</propertyName>
+            <propertyValue>
+                <stringValue>#faf9f5</stringValue>
+            </propertyValue>
+            <scope>Container</scope>
+        </styleSettings>
     </screens>
     <screens>
         <name>Result_Submitted</name>
         <label>Registration result</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
+        <locationX>50</locationX>
+        <locationY>782</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -358,12 +516,54 @@
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
+        <styleSettings>
+            <propertyName>--flowruntime-c-flow-background-color</propertyName>
+            <propertyValue>
+                <stringValue>#faf9f5</stringValue>
+            </propertyValue>
+            <scope>Container</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--flowruntime-c-flow-border-color</propertyName>
+            <propertyValue>
+                <stringValue>#d97757</stringValue>
+            </propertyValue>
+            <scope>Container</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--flowruntime-c-flow-radius-border</propertyName>
+            <propertyValue>
+                <stringValue>1rem</stringValue>
+            </propertyValue>
+            <scope>Container</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--flowruntime-c-flow-border-weight</propertyName>
+            <propertyValue>
+                <stringValue>0.15rem</stringValue>
+            </propertyValue>
+            <scope>Container</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--slds-c-button-brand-color-background</propertyName>
+            <propertyValue>
+                <stringValue>#d97757</stringValue>
+            </propertyValue>
+            <scope>NextOrFinish</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--slds-c-button-brand-color-border</propertyName>
+            <propertyValue>
+                <stringValue>#d97757</stringValue>
+            </propertyValue>
+            <scope>NextOrFinish</scope>
+        </styleSettings>
     </screens>
     <screens>
         <name>Result_Under_Review</name>
         <label>Registration result</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
+        <locationX>402</locationX>
+        <locationY>1082</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -374,9 +574,51 @@
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
+        <styleSettings>
+            <propertyName>--flowruntime-c-flow-border-color</propertyName>
+            <propertyValue>
+                <stringValue>#d97757</stringValue>
+            </propertyValue>
+            <scope>Container</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--flowruntime-c-flow-background-color</propertyName>
+            <propertyValue>
+                <stringValue>#faf9f5</stringValue>
+            </propertyValue>
+            <scope>Container</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--flowruntime-c-flow-radius-border</propertyName>
+            <propertyValue>
+                <stringValue>1rem</stringValue>
+            </propertyValue>
+            <scope>Container</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--flowruntime-c-flow-border-weight</propertyName>
+            <propertyValue>
+                <stringValue>0.15rem</stringValue>
+            </propertyValue>
+            <scope>Container</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--slds-c-button-brand-color-background</propertyName>
+            <propertyValue>
+                <stringValue>#d97757</stringValue>
+            </propertyValue>
+            <scope>NextOrFinish</scope>
+        </styleSettings>
+        <styleSettings>
+            <propertyName>--slds-c-button-brand-color-border</propertyName>
+            <propertyValue>
+                <stringValue>#d97757</stringValue>
+            </propertyValue>
+            <scope>NextOrFinish</scope>
+        </styleSettings>
     </screens>
     <start>
-        <locationX>0</locationX>
+        <locationX>276</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Get_Default_Partner</targetReference>
